@@ -1,0 +1,15 @@
+{
+    //** serverSourceRoot : source in the current server's folder
+    //** localSourceRoot : Source in the current machine
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch currently open script",
+            "type": "php",
+            "request": "launch",
+            "port": 9001,
+            "serverSourceRoot": "/var/www/html",
+            "localSourceRoot": "${workspaceRoot}"
+        }
+    ]
+}

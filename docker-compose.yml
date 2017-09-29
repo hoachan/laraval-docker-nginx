@@ -1,0 +1,71 @@
+version: '3'
+services:
+  mysql:
+    image: mariadb
+    environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=blog
+    ports:
+        - 3306:3306
+    volumes:
+        - ./database:/var/lib/mysql
+  # redis:
+  #   image: redis:alpine
+  #   ports:
+  #     - "6379:6379"
+  # node:
+  #   image: node:alpine
+  #   volumes:
+  #     - ./:/app
+  #   ports:
+  #     - "3000:3000"
+  #   command: node app/node_apps/messaging_general/socket.js
+  # beanstalk:
+  #   image: bevand10/alpine-beanstalk:latest
+  #   ports:
+  #     - "11300:11300"
+  web:
+    image: 'richarvey/nginx-php-fpm:latest'
+    depends_on:
+      - mysql
+    ports:
+      - 81:80
+      - 443:443
+    volumes:
+      # setting xdebug
+      - ./setting/xdebug/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      #setting curently the source app
+      - ./app/blog:/var/www/html/
+      # Setting nginx default
+      - ./setting/nginx/sites-enabled/default.conf:/etc/nginx/sites-enabled/default.conf
+      # Saving Nginx's log content
+      - ./log-system/nginx:/var/log/nginx
+      # Saving Xdebug's log content
+      - ./log-system/xdebug:/tmp/xdebug.log
+    environment:
+      - ENABLE_XDEBUG=1
+      - XDEBUG_CONFIG=remote_host=${LOCALADDRESS}
+      # - PHP_IDE_CONFIG=serverName="localhost"
+  # adminer:    
+  #   image: adminer
+  #   depends_on:
+  #     - mysql
+  #   ports:
+  #     - 8090:8080
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    links:
+      - mysql
+    ports:
+      - 8090:80
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: root
+      PMA_ARBITRARY: 1
+  # beanstalk-console:    
+  #   image: kusmierz/beanstalk-console
+  #   depends_on:
+  #     - beanstalk
+  #   ports:
+  #     - 3001:80
