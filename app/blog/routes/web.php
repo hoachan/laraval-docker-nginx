@@ -12,10 +12,24 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    $tasks = DB::table('tasks')->get();
+
+    // $name = "test";
+    return view('welcome', compact('tasks'));
 });
 
-Route::get('/test', function () {
-    return view('welcome');
+Route::get('/tasks', function () {
+    // $tasks = DB::table('tasks')->get();
+    $tasks = App\Task::all();
+    return view('tasks.index', compact('tasks'));
+});
+
+Route::get('/tasks/{task}', function($id){
+
+    $task = DB::table('tasks')->find($id);
+// var_dump($tasks);
+
+    return view('tasks.show', compact('task'));
 });
 

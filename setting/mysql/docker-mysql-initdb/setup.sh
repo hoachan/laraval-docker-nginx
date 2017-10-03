@@ -1,0 +1,1 @@
+echo "GRANT ALL ON *.* TO 'root'@'web' IDENTIFIED BY '"$MYSQL_ROOT_PASSWORD"';" | "${mysql[@]}"

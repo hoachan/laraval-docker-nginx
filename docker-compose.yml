@@ -1,14 +1,15 @@
 version: '3'
 services:
   mysql:
-    image: mariadb
+    image: mysql
     environment:
         - MYSQL_ROOT_PASSWORD=root
-        - MYSQL_DATABASE=blog
+        # - MYSQL_DATABASE=laravel
     ports:
         - 3306:3306
     volumes:
         - ./database:/var/lib/mysql
+        - ./setting/mysql/docker-mysql-initdb:/docker-entrypoint-initdb.d
   # redis:
   #   image: redis:alpine
   #   ports:
@@ -45,6 +46,11 @@ services:
     environment:
       - ENABLE_XDEBUG=1
       - XDEBUG_CONFIG=remote_host=${LOCALADDRESS}
+      - DATABASE_HOST='mysql'
+      - DATABASE_NAME='laravel'
+      - DATABASE_USER='root'
+      - DATABASE_PASSWORD='root'
+
       # - PHP_IDE_CONFIG=serverName="localhost"
   # adminer:    
   #   image: adminer
