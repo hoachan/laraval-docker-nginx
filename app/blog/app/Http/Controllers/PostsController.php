@@ -32,14 +32,31 @@ class PostsController extends Controller
         //save it to the database
         //and then redirect to the home page.
         //debug request :         dd(request()->all());
-        $post = new Post;  //or u can use this way :  new \App\Post
 
-        $post->title    = request('title');
-        $post->body     = request('body');
+        /** saving way 1 :  */
+        // $post = new Post;  //or u can use this way :  new \App\Post
 
-        //save it to the database
-        $post->save();
+        // $post->title    = request('title');
+        // $post->body     = request('body');
 
+        // //save it to the database
+        // $post->save();
+        /** saving way 1 :  */
+
+        /** Saving Way 2 */
+        // Post::create([
+        //     'title' => request('title'),
+        //     'body'  => request('body')
+        // ]);    
+        /** Saving Way 2 */
+
+        /** Saving Way 3 */
+        // Post::create(request()->all());    
+        /** Saving Way 3 */
+
+        /** Saving Way 4 */
+        Post::create(request(['title', 'body']));    
+        /** Saving Way 4 */
         //and then redirect to the home page.
         return redirect('/');
     }
