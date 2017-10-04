@@ -16,7 +16,7 @@ Route::get('/', function () {
     $tasks = DB::table('tasks')->get();
 
     // $name = "test";
-    return view('welcome', compact('tasks'));
+    return view('posts.index', compact('tasks'));
 });
 
 //Task
@@ -26,3 +26,7 @@ Route::get('/tasks/{task}', 'TasksController@show');
 
 //Posts
 Route::get('/posts', 'PostsController@index');
+Route::get('/posts/create', 'PostsController@create');
+
+//processing form
+Route::post('/posts/store', 'PostsController@store');
