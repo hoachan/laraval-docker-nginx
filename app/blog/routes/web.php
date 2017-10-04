@@ -19,7 +19,10 @@ Route::get('/', function () {
     return view('welcome', compact('tasks'));
 });
 
+//Task
 Route::get('/tasks', 'TasksController@index');
 
 Route::get('/tasks/{task}', 'TasksController@show');
 
+//Posts
+Route::get('/posts', 'PostsController@index');
