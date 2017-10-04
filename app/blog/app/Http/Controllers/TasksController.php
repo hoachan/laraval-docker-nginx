@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Task;
+use DB;
 
 class TasksController extends Controller
 {
@@ -18,10 +19,9 @@ class TasksController extends Controller
         return view('tasks.index', compact('tasks'));
     }
 
-    public function show($id){
-        $task = DB::table('tasks')->find($id);
-        // var_dump($tasks);
-        
+    public function show(Task $task){
+        // $task = DB::table('tasks')->find($id);
+
         return view('tasks.show', compact('task'));
     }
 }
