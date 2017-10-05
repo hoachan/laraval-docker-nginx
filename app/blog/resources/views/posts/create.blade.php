@@ -11,7 +11,9 @@
             <label for="body">Body</label>
             <textarea name="body" id="body" cols="30" rows="10" class="form-control"></textarea>
         </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </form>
+    @include('layout.errors')
 @endsection

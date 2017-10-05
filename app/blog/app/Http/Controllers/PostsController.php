@@ -33,6 +33,18 @@ class PostsController extends Controller
         //and then redirect to the home page.
         //debug request :         dd(request()->all());
 
+        /** Validate data ************************************************/
+        /**************************************************************************/
+        $this->validate(request(), [
+            'title' => 'required',
+            'body'  => 'required'
+        ]);
+        /** Validate Data ************************************************/
+        /**************************************************************************/
+
+
+        /** Saving data to database ************************************************/
+         /**************************************************************************/
         /** saving way 1 :  */
         // $post = new Post;  //or u can use this way :  new \App\Post
 
@@ -57,6 +69,9 @@ class PostsController extends Controller
         /** Saving Way 4 */
         Post::create(request(['title', 'body']));    
         /** Saving Way 4 */
+        /** Saving data to database ************************************************/
+        /**************************************************************************/
+
         //and then redirect to the home page.
         return redirect('/');
     }
