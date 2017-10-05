@@ -9,4 +9,9 @@ class Post extends Model
         return $this->hasMany(Comment::class); 
     }
 
+    public function addComment($body){
+
+        $this->validate(request(), ['body' => 'required|min:2']);
+        $this->comments()->create(compact('body'));
+    }
 }
