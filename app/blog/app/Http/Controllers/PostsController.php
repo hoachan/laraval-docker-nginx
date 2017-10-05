@@ -11,7 +11,9 @@ class PostsController extends Controller
     //
     public function index (){
         
-        return view('posts.index');
+        $posts = Post::all();
+
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -73,6 +75,6 @@ class PostsController extends Controller
         /**************************************************************************/
 
         //and then redirect to the home page.
-        return redirect('/');
+        return redirect('/posts');
     }
 }
