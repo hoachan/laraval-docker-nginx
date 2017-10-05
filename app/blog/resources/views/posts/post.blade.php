@@ -4,3 +4,11 @@
     <p>{{$post->body}}</p>
 </div>
 <hr>
+<div class="comments">
+    @foreach($post->comments as $comment)
+        <article>
+            {{$comment->body}}
+        </article> 
+    @endforeach
+</div>
+<hr>
