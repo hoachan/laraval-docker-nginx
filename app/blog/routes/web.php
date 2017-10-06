@@ -11,20 +11,16 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', 'PostsController@index')->name('home');
 
-    $tasks = DB::table('tasks')->get();
+//login and register
+Route::get('/register', 'RegistrationController@create');
+Route::post('/register', 'RegistrationController@store');
 
-    $posts  = \App\Post::all();
+Route::get('/login', 'SessionsController@create');
+Route::post('/login', 'SessionsController@store');
 
-    return view('posts.index', compact('tasks', 'posts'));
-});
-
-//login
-Route::get('/login', function(){
-    return view('layouts.app');
-});
-
+Route::get('/logout', 'SessionsController@destroy');
 //Task
 Route::get('/tasks', 'TasksController@index');
 
@@ -36,6 +32,7 @@ Route::get('/posts/create', 'PostsController@create');
 
 //processing form
 Route::post('/posts/store', 'PostsController@store');
-Auth::routes();
+
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
